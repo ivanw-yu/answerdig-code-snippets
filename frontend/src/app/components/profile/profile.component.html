@@ -1,0 +1,41 @@
+<div class = "row" style = "height: 500px">
+  <div class = "col-lrg-4">
+    <table class = "side-nav">
+      <thead>
+
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a routerLink = "/profile"
+              routerLinkActive = "side-nav-active"
+              [routerLinkActiveOptions] = "{exact: true}">
+              <span> My Questions </span>
+            </a>
+         </td>
+        </tr>
+        <tr>
+          <td>
+            <a routerLink = "/profile/edit"
+              routerLinkActive = "side-nav-active">
+              <span> Edit Profile </span>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <a routerLink = "/profile/questions/create"
+                      routerLinkActive = "side-nav-active">
+                      <span>Ask Question</span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class = "col-lrg-8">
+    <ng-container>
+      <router-outlet></router-outlet>
+    </ng-container>
+  </div>
+</div>

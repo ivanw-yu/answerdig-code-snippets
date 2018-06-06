@@ -1,0 +1,214 @@
+table, tr{
+    padding: 20px;
+    border: 1px solid #9999ff;
+}
+
+table tr, table td{
+    border-left: none;
+    border-right: none;
+}
+
+table{
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
+
+td{
+    position: relative;
+}
+
+.reply-button-area {
+    padding-top: 0;
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+td.reply-button-area button{
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.reply-textarea{
+    height: 100%;
+    width: 100%;
+    border: 1px solid grey;
+}
+
+.reply-form-area{
+    float: left;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 15px;
+    width: 100%;
+    z-index: 1;
+}
+
+.question-area{
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.vote-area{
+    /* width: 5%;
+    height: 100%;
+    position: absolute;
+    left: 5%; */
+    float: left;
+    width: 5%;
+    height: 90px;
+    padding-left: 45px;
+}
+
+.best-vote-area{
+  padding-left: 10px;
+}
+
+.reply-content-area{
+    /* width: 85%;
+    position: absolute;
+    left: 5%; */
+    float: left;
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 30px 30px 60px;
+}
+
+
+.button-area{
+    /* width: 10%;
+    position: absolute;
+    left: 90%; */
+    width: 100%;
+    text-align: right;
+    position: absolute;
+    top:0;
+    right:0;
+    /* float: left;
+    height: 90px; */
+}
+
+.button-area:after{
+    clear: both;
+}
+
+.replies-area{
+    height: 500px;
+    float: left;
+    width: 100%;
+    border: 1px solid #9999ff;
+}
+
+.reply{
+    width:100%;
+    border-bottom: 1px solid #9999ff;
+    float: left;
+    box-sizing: border-box;
+    padding: 25px 25px 25px 0;
+    border-left: 1px solid #9999ff;
+    border-right: 1px solid #9999ff;
+    /* width: 100%;
+    position: relative; */
+}
+.reply:after, .replies:after, .best-answers-area:after,
+.vote-area:after, .reply:after{
+    content: '';
+    clear: both;
+}
+
+.best-answers-area{
+    float: left;
+    width: 100%;
+    padding: 40px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.best-answer{
+    width:100%;
+    border-bottom: 1px solid #9999ff;
+    float: left;
+    box-sizing: border-box;
+    padding: 25px;
+}
+
+.best-answers-area:after{
+    content: '';
+    clear: both;
+}
+
+.vote-button {
+  z-index: 5;
+  position: relative;
+}
+
+.vote-button .tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    transition: opacity 1s;
+}
+
+.vote-button .tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.vote-button:hover .tooltip {
+    visibility: visible;
+    background-color: black;
+    opacity: 1;
+}
+
+
+@media only screen and (max-width: 340px){
+
+  *{
+    font-size: 8px !important;
+  }
+
+  h1{
+    font-size: 14px !important;
+  }
+
+  .best-answers-area{
+    padding: 0 0 0 5px;
+  }
+  .reply{
+    padding-right: 0;
+  }
+
+  .best-vote-area{
+    padding-left: 5px;
+  }
+}
+
+@media only screen and (max-width: 240px){
+  *{
+    font-size: 6px !important;
+  }
+
+  h1{
+    font-size: 12px !important;
+  }
+
+}

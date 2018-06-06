@@ -1,0 +1,55 @@
+<div class = "home-img-area jumbotron">
+    <div class="cover">
+        <div class = "shadow-box">
+            <h1>AnswerDig</h1>
+              <p> A site for answer seekers and problem solvers.</p>
+              <h4>Share your expertise, post questions now </h4>
+              <button class = "btn btn-primary"
+                      routerLink = "/auth/login">Login</button>
+              <h4>Join a community of problem solvers and ask your questions:</h4>
+              <button class = "btn btn-primary"
+                      routerLink = "/auth/register">Register</button>
+          </div>
+    </div>
+</div>
+
+<div class = "container-fluid">
+  <div class = "row shadow-box">
+    <div class = "col-md-8">
+      <div class = "questions-side">
+        <h3> View Questions </h3>
+        <app-questions-listing [mode] = "'home'"></app-questions-listing>
+      </div>
+    </div>
+    <div class = "col-md-4">
+      <div class="features-area shadow-box">
+        <ul>
+          <h1>Site Features</h1>
+          <li style = "font-size: 12px">
+            Real-time messaging system
+            <ul>
+              <li>Get answers and communicate with other users fast without having to reload page.</li>
+              <li>Post answers and replies as a registered user, or as guest.</li>
+            </ul>
+          </li>
+          <li style = "font-size: 12px">
+            Search Functionality
+            <ul>
+              <li>
+                Search for questions on several topics using our navigation search bar.
+              </li>
+            </ul>
+          </li>
+          <li style = "font-size: 12px">
+            Easy-to-use Question Creation
+            <ul>
+              <li>
+                Question creation includes adding titles, contents and optional tags.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

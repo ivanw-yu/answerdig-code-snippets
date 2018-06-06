@@ -1,0 +1,107 @@
+<div class = "user-form-box">
+  <form (ngSubmit) = "onSubmit()" name = "registration" #userForm = "ngForm">
+      <div class = "row">
+        <ng-container ngModelGroup = "name"
+                      #name = "ngModelGroup">
+          <div class = "col-sm-12">
+            <div class = "input-group">
+              <span class = "input-group-addon">First Name</span>
+              <input name = "first"
+                    type = "text"
+                    class = "form-control"
+                    placeholder = "First Name"
+                    ngModel
+                    minlength = "2"
+                    required
+                    #first = "ngModel">
+            </div>
+            <p *ngIf = "(!first.valid || !customValidators.validName(first.value)) && first.touched">
+                <ng-container *ngIf = "!first.valid && first.errors.required"> You must provide a first name. </ng-container>
+                <ng-container *ngIf = "!first.valid && first.errors.minlength"> The first name needs to be atleast 2 characters long.</ng-container>
+                <ng-container *ngIf = "!customValidators.validName(first.value)"> The first name must only contain alphabets.</ng-container>
+              </p>
+          </div>
+          <div class = "col-sm-12">
+            <div class = "input-group">
+              <span class = "input-group-addon">Last Name</span>
+              <input name = "last"
+                    type = "text"
+                    class = "form-control"
+                    placeholder = "Last Name"
+                    ngModel
+                    required
+                    minlength = "2"
+                    #last = "ngModel">
+            </div>
+
+            <p *ngIf = "(!last.valid || !customValidators.validName(last.value)) && last.touched">
+                <ng-container *ngIf = "!last.valid && last.errors.required"> You must provide a last name. </ng-container>
+                <ng-container *ngIf = "!last.valid && last.errors.minlength"> The last name needs to be atleast 2 characters long.</ng-container>
+                <ng-container *ngIf = "!customValidators.validName(last.value)"> The last name must only contain alphabets. </ng-container>
+            </p>
+          </div>
+        </ng-container>
+        <div class = "col-sm-12">
+            <div class = "input-group">
+              <span class = "input-group-addon">Username</span>
+              <input name = "username"
+                    type = "text"
+                    class = "form-control"
+                    placeholder = "Username"
+                    ngModel
+                    required
+                    minlength = "2"
+                    #username = "ngModel">
+            </div>
+            <p *ngIf = "(!username.valid || !customValidators.validUsername(username.value)) && username.touched">
+              <ng-container *ngIf = "!username.valid && username.errors.required"> You must provide a username. </ng-container>
+              <ng-container *ngIf = "!username.valid && username.errors.minlength"> Username needs to be atleast 2 characters long.</ng-container>
+              <ng-container *ngIf = "!customValidators.validUsername(username.value)"> The username must have an alphabet, and optionally, digits. </ng-container>
+            </p>
+          </div>
+          <div class = "col-sm-12">
+              <div class = "input-group">
+                <span class = "input-group-addon">Email</span>
+                <input name = "email"
+                      type = "text"
+                      class = "form-control"
+                      placeholder = "Email"
+                      ngModel
+                      required
+                      email
+                      #email = "ngModel">
+              </div>
+              <p *ngIf = "!email.valid && email.touched">
+                  <ng-container *ngIf = "email.errors.required"> You must provide an email. </ng-container>
+                  <ng-container *ngIf = "email.errors.email"> The email you provided is invalid.</ng-container>
+              </p>
+            </div>
+            <div class = "col-sm-12">
+                <div class = "input-group">
+                  <span class = "input-group-addon">Password</span>
+                  <input name = "password"
+                        type = "password"
+                        class = "form-control"
+                        placeholder = "Password"
+                        ngModel
+                        minlength = "3"
+                        required
+                        #password ="ngModel">
+                </div>
+                <p *ngIf = "!password.valid && password.touched">
+                    <ng-container *ngIf = "password.errors.required"> You must provide a password. </ng-container>
+                    <ng-container *ngIf = "password.errors.minlength"> The password must be atleast 3 characters long.</ng-container>
+                </p>
+              </div>
+      </div>
+    <input class = "site-button registration-button"
+          type = "submit"
+          value = "Submit"
+          *ngIf = "userForm && userForm.value && userForm.value.name"
+          [disabled] = "!userForm.valid
+                        || !customValidators.validUsername(userForm.value.username)
+                        || !customValidators.validName(userForm.value.name.first)
+                        || !customValidators.validName(userForm.value.name.last)">
+    </form>
+    <p *ngIf = "httpError">{{httpError}}</p>
+  </div>

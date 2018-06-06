@@ -1,0 +1,17 @@
+nav *{
+    color: white;
+}
+
+nav li, nav a{
+    color: white;
+}
+
+nav a:hover{
+    background-color:#006699;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar{
+    box-shadow: 1px 1px 7px #cccccc;
+}

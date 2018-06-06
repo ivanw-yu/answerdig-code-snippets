@@ -1,0 +1,126 @@
+.home-jumbotron{
+    background: linear-gradient(to top right, #ffffff 0%, #006699 103%);
+    position: relative;
+    margin: 0;
+    z-index: 0;
+}
+
+.jumbotron{
+    background-color: rgba(255,255,255, .5);
+}
+
+body{
+    background-color: grey;
+}
+
+
+.question-wrap{
+    border-radius: 15%;
+    background-color: #bfbfbf;
+    background: linear-gradient(to bottom, #ccccff 0%, #ffffff 100%);
+    box-sizing: border-box;
+    padding: 10px 30px;
+}
+
+.questions-side{
+    padding: 15px;
+}
+
+.jumbotron{
+    padding-right: 400px;
+    background-color: rgba(255,255,255, .5);
+}
+
+@media only screen and (max-width: 840px){
+
+    .jumbotron h1{
+        font-size: 30px;
+    }
+}
+
+
+@media only screen and (max-width: 690px){
+    .jumbotron{
+        padding-right: 200px;
+    }
+}
+
+@media only screen and (max-width: 490px){
+    .jumbotron{
+        padding-right: 100px;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    .jumbotron{
+        padding: 25px;
+        font-size: 9px;
+    }
+
+    .jumbotron h1{
+        font-size: 20px;
+    }
+
+    .jumbotron h4{
+        font-size: 14px;
+    }
+
+    .jumbotron p{
+        font-size: 12px;
+    }
+}
+
+
+/* add white background explicitly for global class shadow-box*/
+.shadow-box{
+    background-color: white;
+    box-sizing: border-box;
+    padding: 25px;
+}
+
+/* @media only screen and (max-width: 840px) {
+  .shadow-box{
+    font-size: 16px;
+  }
+} */
+
+/* .cover{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    height: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background-color: black;
+    opacity: .5;
+} */
+
+.cover{
+    box-sizing: border-box;
+}
+
+.home-img-area{
+    background: url('/assets/img/answerdig-home-pic.jpeg');
+    background-size: 100% 100%;
+}
+
+.home-col{
+    box-sizing: border-box;
+    padding: 0 35px;
+}
+
+.questions-side{
+    border: 1px solid #4d4dff;
+    box-shadow: 3px 3px 3px #cccccc;
+    border-radius: 15px;
+}
+
+.features-area{
+    border: 1px solid #f2f2f2;
+    border-radius: 15px;
+}
+
+[class^="col"]{
+    padding-top: 15px;
+}

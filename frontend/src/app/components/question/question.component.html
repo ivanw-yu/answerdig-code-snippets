@@ -1,0 +1,193 @@
+<div class = "question-area shadow-box"
+    *ngIf = "question">
+    <h1>{{question.subject}}</h1>
+    <h2>{{question.content}}</h2>
+    <p *ngIf = "question.user"> {{question.user.name.first + ' ' + question.user.name.last }} ({{question.user.username}}) | {{question._id | convertObjectIdToDate | amLocal | amDateFormat: 'MMMM Do YYYY, h:mm:ss a'}}</p>
+    <p *ngIf = "question.timeEdited"> Edited: {{question.timeEdited | amLocal | amDateFormat: 'MMMM Do YYYY, h:mm:ss a'}}</p>
+    <div *ngIf = "userId && question.user && userId == question.user._id" class = "button-area">
+        <button class = "btn btn-primary glyphicon glyphicon-pencil" (click) = "goToEdit()"></button>
+        <button class = "btn btn-primary glyphicon glyphicon-remove" (click) = "openDeleteForm()"></button>
+    </div>
+    <div *ngIf = "question.tags && question.tags.length > 0"
+         class = "row">
+        <div *ngFor = "let tag of question.tags"
+             class = "col-sm-2"
+             style = "background-color: #f2f2f2; margin: 5px 5px; text-align: center;">
+            {{tag}}
+        </div>
+    </div>
+</div>
+<ng-container *ngIf = "this.hasReplies()">
+    <div *ngIf = "bestAnswers && bestAnswers.length > 0"
+        class = "best-answers-area shadow-box">
+        <h1>Best Answers</h1>
+        <div *ngFor = "let reply of bestAnswers"
+            class = "best-answer">
+            <div class = "vote-area best-vote-area">
+                {{reply.votes.length}} <br>
+                Votes
+            </div>
+            <div class = "reply-content-area">
+                <p [innerHTML] = "reply.content">
+                </p>
+                <p *ngIf = "reply._id"> {{reply._id | convertObjectIdToDate}}</p>
+                <p *ngIf = "reply.timeEdited"> Edited: {{question.timeEdited}}</p>
+                <p *ngIf = "reply.user">
+                    {{reply.user.name.first + ' ' + reply.user.name.last}} ( {{reply.user.username}} ) | {{reply._id | convertObjectIdToDate}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class = "shadow-box"
+        style = "float: left;
+                padding: 25px;
+                width: 100%">
+        <h4 style = "padding: 25px">Answers</h4>
+        <div #chatScroll class = "scroll-box replies-area" ><!--[scrollTop]="chatScroll.scrollHeight">-->
+            <ng-container *ngIf = "question && question.replies">
+                <div *ngFor = "let reply of question.replies; let i = index"
+                    class = "reply">
+                    <ng-container *ngIf = "reply">
+                        <div class = "vote-area" style = "z-index: -1">
+                            <button class = "glyphicon glyphicon-chevron-up vote-button"
+                                    [name] = "'vote' + reply._id"
+                                    [disabled] = "!this.checkVote(i) || !userId"
+                                    [ngStyle] = "{cursor: !userId || !this.checkVote(i) ? 'not-allowed' : 'pointer'}"
+                                    (click) = "vote(reply._id, 1)">
+                                    <div *ngIf = "!userId" class = "tooltip">
+                                        Please log in to vote.
+                                    </div>
+                                    <div *ngIf = "userId && !this.checkVote(i)" class = "tooltip">
+                                        You've already voted.
+                                    </div>
+                              </button>
+                            <br>
+                            <p>{{ reply.votes ? reply.votes.length : 0}}</p>
+                            <button class = "glyphicon glyphicon-chevron-down vote-button"
+                                    (click) = "unvote(reply._id)"
+                                    [ngStyle] = "{cursor: !userId || this.checkVote(i) ? 'not-allowed' : 'pointer'}"
+                                    [disabled] = "this.checkVote(i) || !userId">
+                                    <div *ngIf = "!userId" class = "tooltip">
+                                        Please log in to vote.
+                                    </div>
+                                    <div *ngIf = "userId && this.checkVote(i)" class = "tooltip">
+                                        You must upvote first.
+                                    </div>
+                            </button>
+                        </div>
+                        <div class = "reply-content-area">
+                            <form *ngIf = "repliesEditing && repliesEditing[reply._id]"
+                                  (ngSubmit) = "saveEditReply(reply._id, reply.user)">
+                                <textarea type = "text"
+                                       [name] = "reply._id"
+                                       [(ngModel)] = "repliesEditing[reply._id]"
+                                       required
+                                       minlength = "1"
+                                       class = "form-control"></textarea>
+
+                                <button class = "btn btn-primary">Save</button>
+                            </form>
+                            <p *ngIf = "!repliesEditing || !repliesEditing[reply._id]"
+                            [innerHTML] = "reply.content">
+                            </p>
+                            <p *ngIf = "reply.user">
+                                {{reply.user.name.first + ' ' + reply.user.name.last}} ( {{reply.user.username}} ) | {{reply._id | convertObjectIdToDate}}
+                            </p>
+                            <p *ngIf = "!reply.user">
+                                {{reply._id | convertObjectIdToDate | amLocal | amDateFormat: 'MMMM Do YYYY, h:mm:ss a'}}
+                            </p>
+                            <p *ngIf = "reply.timeEdited">
+                                Edited: {{reply.timeEdited | amLocal | amDateFormat: 'MMMM Do YYYY, h:mm:ss a'}}}
+                            </p>
+                        </div>
+                        <div class = "button-area">
+                            <ng-container *ngIf = "user && reply.user && user._id === reply.user._id">
+                                <button class = "glyphicon glyphicon-pencil"
+                                        (click) = "editReply(reply._id, reply.content)">
+                                </button>
+                                <button class = "glyphicon glyphicon-remove" (click) = "deleteReply(reply._id)">
+                                </button>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+
+<!-- If logged in user -->
+
+    <div class = "reply-form-area shadow-box">
+        <p *ngIf = "!this.hasReplies()">
+            There are no answers posted for this question.
+        </p>
+        <div style = "margin: 40px;">
+            Leave a reply, {{guest ? user.username : ''}}
+            <form (ngSubmit) = "sendReply(reply.value)" #replyForm = "ngForm">
+                <textarea class = "reply-textarea"
+                        name = "content"
+                        rows = "10"
+                        ngModel
+                        #reply = "ngModel"></textarea>
+
+                <input class = "btn btn-primary"
+                    type = "submit"
+                    value = "Reply"
+                    [disabled] = "!reply.value || reply.value.length == 0 || (!this.user && !this.guest)">
+            </form>
+            <div *ngIf = "!userId && !user"
+                 style = "text-align: center;
+                        border: 1px solid #9999ff;
+                        padding: 25px;">
+                To Reply <br>
+                <a href = "/login">
+                    <button class = "btn btn-primary">
+                        Login
+                    </button>
+                </a>
+                <br>
+                <br>
+                <p> -- OR -- </p>
+                <br>
+                <br>
+                <div class = "form-group"
+                    style = "text-align: left;
+                            margin: auto;
+                            width: 50%;">
+                    <form (ngSubmit) = "joinAsGuest(guestName.value)" >
+                        Name
+                        <input type = "text"
+                            name = "guestName"
+                            class = "form-control"
+                            ngModel
+                            #guestName = "ngModel">
+                        <br>
+                        <button class = "btn btn-primary">
+                            Join Conversation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-question-delete *ngIf = "deleteMode"
+                         [question] = "this.question"
+                         (isDeleted) = "deleteCompletion($event)">
+
+    </app-question-delete>
+    <div *ngIf = "question && question.deleted"
+         class = "pop-up-background">
+        <div class = "pop-up">
+            This question has been deleted.
+            <a routerLink = "/">
+                <button class = "btn btn-primary">
+                    Leave Page
+                </button>
+            </a>
+        </div>
+    </div>
